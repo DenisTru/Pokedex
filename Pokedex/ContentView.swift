@@ -20,11 +20,7 @@ struct ContentView: View {
                             .font(.title)
                             
                         HStack {
-                            Text(pokemon.type.capitalized)
-                                .italic()
-                            Circle()
-                                .foregroundColor(pokemon.typeColor)
-                                .frame(width: 10, height: 10)
+
                         }
                         Text(pokemon.description)
                             .font(.caption)
@@ -34,7 +30,7 @@ struct ContentView: View {
                     KFImage(URL(string: pokemon.imageURL))
                         .interpolation(.none)
                         .resizable()
-                        .frame(width:100, height: 100)
+                        .frame(width:200, height: 200)
                 }
             }
             .navigationTitle("Pokemon")
