@@ -2,4 +2,3 @@
 Pokemon Demo 
 
 
-Pokedex Demo
