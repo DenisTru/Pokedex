@@ -24,8 +24,14 @@ struct ContentView: View {
                         //use opt+CMD and an '[' to move block of code up a line!
                         HStack{
                             VStack(alignment: .leading, spacing: 5){
-                                Text(pokemon.name.capitalized)
-                                    .font(.title)
+                                HStack {
+                                    Text(pokemon.name.capitalized)
+                                        .font(.title)
+                                    if pokemon.isFavorite {
+                                        Image(systemName: "star.fill")
+                                            .foregroundColor(.yellow)
+                                    }
+                                }
                                 
                                 HStack {
                                     Text(pokemon.type.capitalized)
@@ -46,6 +52,12 @@ struct ContentView: View {
                         }
                         
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button(action: { addFavorite(pokemon: pokemon)}) {
+                            Image(systemName: "star")
+                        }
+                        .tint(.yellow)
+                    }
                 }
                 
             }
@@ -59,6 +71,12 @@ struct ContentView: View {
         //                pokemon = try! await PokemonVM.getPokemon()
         //            }
         
+    }
+    
+    func addFavorite(pokemon: Pokemon) {
+        if let index = pokemonVM.pokemon.firstIndex(where: { $0.id == pokemon.id } ) {
+            pokemonVM.pokemon[index].isFavorite.toggle()
+        }
     }
 }
 
