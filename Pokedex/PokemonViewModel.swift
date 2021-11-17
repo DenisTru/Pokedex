@@ -7,11 +7,41 @@
 
 import Foundation
 import SwiftUI
-
+import CoreData
 
 class PokemonViewModel: ObservableObject {
     
     @Published var pokemon = [Pokemon]()
+    
+    
+    
+    //save JSON to CoreData
+    func saveData(context: NSManagedObjectContext) {
+        pokemon.forEach{ (data) in
+            let colorTypeTransformable = UIColor(data.typeColor).encode()
+            let entity = CDPokemon(context: context)
+            entity.attack = Int32(data.attack)
+            entity.color = colorTypeTransformable
+            entity.defense = Int32(data.defense)
+            entity.descript = data.description
+            entity.height = Int32(data.height)
+            entity.id = Int32(data.id)
+            entity.imageURL = data.imageURL
+            entity.isFavorite = data.isFavorite
+            entity.name = data.name
+            entity.pokemonID = data.pokemonID
+            entity.type = data.type
+            entity.weight = Int32(data.weight)
+        }
+        do{
+            try context.save()
+            print("Success")
+        }
+        catch{
+            print(error.localizedDescription)
+        }
+    }
+    
     
     init(){
         

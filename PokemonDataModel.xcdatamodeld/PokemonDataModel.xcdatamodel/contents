@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="CDPokemon" representedClassName="CDPokemon" syncable="YES">
+        <attribute name="attack" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="color" optional="YES" attributeType="Transformable" valueTransformerName="NSKeyedUnarchiveFromDataTransformerName" customClassName="NSData"/>
+        <attribute name="defense" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="descript" optional="YES" attributeType="String"/>
+        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="pokemonID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="weight" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="CDPokemon" positionX="-63" positionY="-18" width="128" height="209"/>
+    </elements>
 </model>

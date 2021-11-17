@@ -7,24 +7,32 @@
 
 import SwiftUI
 import Kingfisher
+import CoreData
 
 struct ContentView: View {
     @StateObject var pokemonVM = PokemonViewModel()
     @State private var searchText = ""
+    
+    
     var filteredPokemon: [Pokemon] {
         if searchText == "" {return pokemonVM.pokemon}
         return pokemonVM.pokemon.filter{$0.name.lowercased().contains(searchText.lowercased())}
     }
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: CDPokemon.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \CDPokemon.name, ascending: true)]) var results: FetchedResults<CDPokemon>
+    
+    
     var body: some View {
         NavigationView{
             List {
                 ForEach(filteredPokemon) { pokemon in
                     NavigationLink(destination: DetailView(pokemon: pokemon)){
-                        
+                
                         //use opt+CMD and an '[' to move block of code up a line!
                         HStack{
                             VStack(alignment: .leading, spacing: 5){
                                 HStack {
+ 
                                     Text(pokemon.name.capitalized)
                                         .font(.title)
                                     if pokemon.isFavorite {
@@ -61,15 +69,47 @@ struct ContentView: View {
                 }
                 
             }
-            .navigationTitle("Pokemon")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        if self.moc.hasChanges {
+                            try? self.moc.save()
+                        }
+                        
+                        
+                        do{
+                            results.forEach{ pokemon in
+                                moc.delete(pokemon)
+                            }
+                            try moc.save()
+                        }catch{
+                            print(error.localizedDescription)
+                        }
+                        
+                        
+                        pokemonVM.pokemon.removeAll()
+                    }){
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .navigationTitle(results.isEmpty ? "Fetched JSON": "Fetched CoreData")
             .searchable(text: $searchText)
             .task {
-                do{
+                if results.isEmpty {
+                    do{
+                        pokemonVM.pokemon = try await pokemonVM.getPokemon()
+                        pokemonVM.saveData(context: moc)
+                    } catch {
+                        print("Error", error)
+                    }
+                } else {
+                    results.forEach{ poke in
+                        pokemonVM.pokemon.append(Pokemon(isFavorite: poke.isFavorite ,id: Int(poke.id), name: poke.unwrappedName, imageURL: poke.unwrappedImageURL, type: poke.wrappedType, description: poke.unwrappedDescript, attack: Int(poke.attack), defense: Int(poke.defense), height: Int(poke.height), weight: Int(poke.weight)))
+                    }
                     
-                    pokemonVM.pokemon = try await pokemonVM.getPokemon()
-                } catch {
-                    print("Error", error)
                 }
+ 
             }
         }
         

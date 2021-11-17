@@ -20,6 +20,8 @@
 		E7DA66CA2744773000CAE2A7 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA66C92744773000CAE2A7 /* DetailView.swift */; };
 		E7DA66CD2744A28D00CAE2A7 /* PokemonDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7DA66CB2744A28D00CAE2A7 /* PokemonDataModel.xcdatamodeld */; };
 		E7DA66CF2744A29C00CAE2A7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA66CE2744A29C00CAE2A7 /* Persistence.swift */; };
+		E7DA66D22744D78200CAE2A7 /* Pokemon+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA66D02744D78200CAE2A7 /* Pokemon+CoreDataClass.swift */; };
+		E7DA66D32744D78200CAE2A7 /* Pokemon+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA66D12744D78200CAE2A7 /* Pokemon+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		E7DA66C92744773000CAE2A7 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		E7DA66CC2744A28D00CAE2A7 /* PokemonDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PokemonDataModel.xcdatamodel; sourceTree = "<group>"; };
 		E7DA66CE2744A29C00CAE2A7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		E7DA66D02744D78200CAE2A7 /* Pokemon+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Pokemon+CoreDataClass.swift"; path = "Pokedex/Pokemon+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E7DA66D12744D78200CAE2A7 /* Pokemon+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Pokemon+CoreDataProperties.swift"; path = "Pokedex/Pokemon+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,8 @@
 		E7DA66A22743818000CAE2A7 = {
 			isa = PBXGroup;
 			children = (
+				E7DA66D02744D78200CAE2A7 /* Pokemon+CoreDataClass.swift */,
+				E7DA66D12744D78200CAE2A7 /* Pokemon+CoreDataProperties.swift */,
 				E7DA66CB2744A28D00CAE2A7 /* PokemonDataModel.xcdatamodeld */,
 				E7DA66CE2744A29C00CAE2A7 /* Persistence.swift */,
 				E7DA66AD2743818000CAE2A7 /* Pokedex */,
@@ -173,11 +179,13 @@
 				E7DA66CA2744773000CAE2A7 /* DetailView.swift in Sources */,
 				E7DA66B12743818000CAE2A7 /* ContentView.swift in Sources */,
 				E7DA66C42744715D00CAE2A7 /* PokemonImage.swift in Sources */,
+				E7DA66D22744D78200CAE2A7 /* Pokemon+CoreDataClass.swift in Sources */,
 				E7DA66C8274475D000CAE2A7 /* StatsViewGroup.swift in Sources */,
 				E7DA66CD2744A28D00CAE2A7 /* PokemonDataModel.xcdatamodeld in Sources */,
 				E7DA66BD2743848C00CAE2A7 /* PokemonModel.swift in Sources */,
 				E7DA66BF274388AD00CAE2A7 /* PokemonViewModel.swift in Sources */,
 				E7DA66AF2743818000CAE2A7 /* PokedexApp.swift in Sources */,
+				E7DA66D32744D78200CAE2A7 /* Pokemon+CoreDataProperties.swift in Sources */,
 				E7DA66CF2744A29C00CAE2A7 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
