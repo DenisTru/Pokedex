@@ -63,6 +63,14 @@ struct ContentView: View {
             }
             .navigationTitle("Pokemon")
             .searchable(text: $searchText)
+            .task {
+                do{
+                    
+                    pokemonVM.pokemon = try await pokemonVM.getPokemon()
+                } catch {
+                    print("Error", error)
+                }
+            }
         }
         
         //no longer need to load data into a @State object, we moved it in the VM

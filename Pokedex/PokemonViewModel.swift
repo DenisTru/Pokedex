@@ -14,9 +14,11 @@ class PokemonViewModel: ObservableObject {
     @Published var pokemon = [Pokemon]()
     
     init(){
-        Task {
-            pokemon = try await getPokemon()
-        }
+        
+//        Task {
+//            pokemon = try await getPokemon()
+//        }
+        
     }
     
     func getPokemon() async throws -> [Pokemon] {
