@@ -13,7 +13,7 @@ struct ContentView: View {
     @StateObject var pokemonVM = PokemonViewModel()
     @State private var searchText = ""
     
-    
+    //need to fix, does not show pokemon ascending right away, we need UI to react and sort right away
     var filteredPokemon: [Pokemon] {
         if searchText == "" {return pokemonVM.pokemon}
         return pokemonVM.pokemon.filter{$0.name.lowercased().contains(searchText.lowercased())}
@@ -27,12 +27,12 @@ struct ContentView: View {
             List {
                 ForEach(filteredPokemon) { pokemon in
                     NavigationLink(destination: DetailView(pokemon: pokemon)){
-                
+                        
                         //use opt+CMD and an '[' to move block of code up a line!
                         HStack{
                             VStack(alignment: .leading, spacing: 5){
                                 HStack {
- 
+                                    
                                     Text(pokemon.name.capitalized)
                                         .font(.title)
                                     if pokemon.isFavorite {
@@ -72,24 +72,38 @@ struct ContentView: View {
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        if self.moc.hasChanges {
-                            try? self.moc.save()
-                        }
+                        //since we are not directly interacting with CoreData and we are displaying data off the @published array
+                        //we have to delete the stored data and repopulate with noew values from @published array --workaround--
+                        //unable to directly work with coredata because CDPokemon and Pokemon conflict, so we are appending @published with CDPokemon Values
+                        
+                            results.forEach{ pokemon in
+                                moc.delete(pokemon)
+                            }
+                            pokemonVM.saveData(context: moc)
+                         
                         
                         
+//                        if self.moc.hasChanges {
+//                            try? self.moc.save()
+//                        }
+                    }){
+                        Text("Save Changes")
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
                         do{
                             results.forEach{ pokemon in
                                 moc.delete(pokemon)
                             }
+                            pokemonVM.pokemon.removeAll()
                             try moc.save()
                         }catch{
                             print(error.localizedDescription)
                         }
                         
-                        
-                        pokemonVM.pokemon.removeAll()
-                    }){
-                        Image(systemName: "plus")
+                    }) {
+                        Text("Delete Persistent Data")
                     }
                 }
             }
@@ -104,12 +118,13 @@ struct ContentView: View {
                         print("Error", error)
                     }
                 } else {
+                    pokemonVM.pokemon.removeAll()
                     results.forEach{ poke in
                         pokemonVM.pokemon.append(Pokemon(isFavorite: poke.isFavorite ,id: Int(poke.id), name: poke.unwrappedName, imageURL: poke.unwrappedImageURL, type: poke.wrappedType, description: poke.unwrappedDescript, attack: Int(poke.attack), defense: Int(poke.defense), height: Int(poke.height), weight: Int(poke.weight)))
                     }
                     
                 }
- 
+                
             }
         }
         
