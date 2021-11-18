@@ -12,7 +12,7 @@ struct StatView: View {
     var statName: String
     var statColor: Color
     var statValue: Int
-    
+    //need seperate view for weight
     
     var body: some View {
         HStack{
