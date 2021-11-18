@@ -12,7 +12,7 @@ import CoreData
 
 
 @objc(CDPokemon)
-public class CDPokemon: NSManagedObject {
+public class CDPokemon: NSManagedObject, Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id

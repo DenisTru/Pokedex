@@ -51,7 +51,7 @@ class PokemonViewModel: ObservableObject {
         
     }
     
-    func getPokemon() async throws -> [Pokemon] {
+    func getPokemon(moc: NSManagedObjectContext) async throws {
         guard let url = URL(string: "https://pokedex-bb36f.firebaseio.com/pokemon.json")
         else {throw FetchError.badURL}
         
@@ -62,8 +62,17 @@ class PokemonViewModel: ObservableObject {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {throw FetchError.badResponse}
         guard let data = data.removeNullsFrom(string: "null,") else {throw FetchError.badData}
         
-        let maybePokemonData = try JSONDecoder().decode([Pokemon].self, from: data)
-        return maybePokemonData
+        let decoder = JSONDecoder()
+        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
+        
+        if( try? decoder.decode([CDPokemon].self, from: data)) != nil {
+            print("decoded ?")
+            if moc.hasChanges {
+                try? moc.save()
+            }
+        }
+ 
+        return
     }
     
     
