@@ -76,16 +76,18 @@ struct ContentView: View {
                         //we have to delete the stored data and repopulate with noew values from @published array --workaround--
                         //unable to directly work with coredata because CDPokemon and Pokemon conflict, so we are appending @published with CDPokemon Values
                         
-                            results.forEach{ pokemon in
-                                moc.delete(pokemon)
-                            }
-                            pokemonVM.saveData(context: moc)
+//                            results.forEach{ pokemon in
+//                                moc.delete(pokemon)
+//                            }
+//                            pokemonVM.saveData(context: moc)
                          
                         
                         
-//                        if self.moc.hasChanges {
-//                            try? self.moc.save()
-//                        }
+                        if self.moc.hasChanges {
+                            try? self.moc.save()
+                        } else{
+                            print("nothing to save")
+                        }
                     }){
                         Text("Save Changes")
                     }
@@ -96,7 +98,7 @@ struct ContentView: View {
                             results.forEach{ pokemon in
                                 moc.delete(pokemon)
                             }
-                            pokemonVM.pokemon.removeAll()
+//                            pokemonVM.pokemon.removeAll()
                             try moc.save()
                         }catch{
                             print(error.localizedDescription)
@@ -110,20 +112,20 @@ struct ContentView: View {
             .navigationTitle(results.isEmpty ? "Fetched JSON": "Fetched CoreData")
             .searchable(text: $searchText)
             .task {
-                if results.isEmpty {
-                    do{
-                        pokemonVM.pokemon = try await pokemonVM.getPokemon()
-                        pokemonVM.saveData(context: moc)
-                    } catch {
-                        print("Error", error)
-                    }
-                } else {
-                    pokemonVM.pokemon.removeAll()
-                    results.forEach{ poke in
-                        pokemonVM.pokemon.append(Pokemon(isFavorite: poke.isFavorite ,id: Int(poke.id), name: poke.unwrappedName, imageURL: poke.unwrappedImageURL, type: poke.wrappedType, description: poke.unwrappedDescript, attack: Int(poke.attack), defense: Int(poke.defense), height: Int(poke.height), weight: Int(poke.weight)))
-                    }
+                
+                //if core data empty than load JSON() & save to context
+    //else load results table ``````````!@@@@@@!@!@
+//                if results.isEmpty {
+//                    do{
+//
+//                    } catch {
+//                        print("Error", error)
+//                    }
+//                } else {
+//
+//                    }
                     
-                }
+                
                 
             }
         }
