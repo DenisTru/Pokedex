@@ -90,3 +90,7 @@ extension UIColor {
           return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
      }
 }
+
+extension CodingUserInfoKey {
+    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
+}
