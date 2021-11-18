@@ -5,7 +5,6 @@ Practice with UI/UX
 - Decodable/Identifiable Conformance & Networking
 - MVVM
 - Core Data is working successfully
-- 
 Currently Working on: 
 -Stat Bar stylization for Weight
 -Remove Save and delete buttons
