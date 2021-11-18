@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StatView: View {
-    var pokemon: Pokemon
+    var pokemon: CDPokemon
     var statName: String
     var statColor: Color
     var statValue: Int
@@ -36,9 +36,9 @@ struct StatView: View {
         }
     }
 }
-
-struct StatView_Previews: PreviewProvider {
-    static var previews: some View {
-        StatView(pokemon: PokemonViewModel().MOCK_POKEMON, statName: "Atk", statColor: .blue, statValue: 70)
-    }
-}
+//
+//struct StatView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StatView(pokemon: PokemonViewModel().MOCK_POKEMON, statName: "Atk", statColor: .blue, statValue: 70)
+//    }
+//}

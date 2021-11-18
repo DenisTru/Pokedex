@@ -7,19 +7,49 @@
 
 import Foundation
 import SwiftUI
-
+import CoreData
 
 class PokemonViewModel: ObservableObject {
     
-    @Published var pokemon = [Pokemon]()
+    private var pokemon = [Pokemon]()
     
-    init(){
-        Task {
-            pokemon = try await getPokemon()
+    
+    
+    //save JSON to CoreData
+   private func saveData(context: NSManagedObjectContext) {
+        pokemon.forEach{ (data) in
+            let colorTypeTransformable = UIColor(data.typeColor).encode()
+            let entity = CDPokemon(context: context)
+            entity.attack = Int32(data.attack)
+            entity.color = colorTypeTransformable
+            entity.defense = Int32(data.defense)
+            entity.descript = data.description
+            entity.height = Int32(data.height)
+            entity.id = Int32(data.id)
+            entity.imageURL = data.imageURL
+            entity.isFavorite = data.isFavorite
+            entity.name = data.name
+            entity.pokemonID = data.pokemonID
+            entity.type = data.type
+            entity.weight = Int32(data.weight)
+        }
+        do{
+            try context.save()
+            print("Success")
+        }
+        catch{
+            print(error.localizedDescription)
         }
     }
     
-    func getPokemon() async throws -> [Pokemon] {
+    
+    init(){
+        
+
+        
+    }
+    
+    func getPokemon(moc: NSManagedObjectContext) async throws {
         guard let url = URL(string: "https://pokedex-bb36f.firebaseio.com/pokemon.json")
         else {throw FetchError.badURL}
         
@@ -30,8 +60,15 @@ class PokemonViewModel: ObservableObject {
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {throw FetchError.badResponse}
         guard let data = data.removeNullsFrom(string: "null,") else {throw FetchError.badData}
         
-        let maybePokemonData = try JSONDecoder().decode([Pokemon].self, from: data)
-        return maybePokemonData
+        let decoder = JSONDecoder()
+        decoder.userInfo[CodingUserInfoKey.context!] = moc
+         _ = try? decoder.decode([CDPokemon].self, from: data)
+            if moc.hasChanges {
+                try? moc.save()
+            }
+        
+ 
+        return
     }
     
     
