@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct DetailView: View {
-    var pokemon: Pokemon
+    var pokemon: CDPokemon
     
     @State private var scale: CGFloat = 0
     
@@ -17,12 +17,12 @@ struct DetailView: View {
     var body: some View {
         GeometryReader { geo in
             VStack {
-                Text(pokemon.name.capitalized)
+                Text(pokemon.unwrappedName.capitalized)
                     .font(.largeTitle)
-                Text(pokemon.type.capitalized)
+                Text(pokemon.unwrappedType.capitalized)
                     .italic()
                     .foregroundColor(pokemon.typeColor)
-                PokemonImage(image: KFImage(URL(string: pokemon.imageURL)))
+                PokemonImage(image: KFImage(URL(string: pokemon.unwrappedImageURL)))
                     .padding(.bottom, -100)
                     .zIndex(1)
                 
@@ -42,7 +42,7 @@ struct DetailView: View {
                                 .foregroundColor(.white)
                         }
                         //remove all new lines with empty space
-                        Text(pokemon.description.replacingOccurrences(of: "\n", with: ""))
+                        Text(pokemon.unwrappedDescript.replacingOccurrences(of: "\n", with: ""))
                             .foregroundColor(.white)
                             .padding()
                         StatsViewGroup(pokemon: pokemon)
@@ -54,9 +54,9 @@ struct DetailView: View {
         }
     }
 }
-
-struct DetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailView(pokemon: PokemonViewModel().MOCK_POKEMON)
-    }
-}
+//
+//struct DetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailView(pokemon: PokemonViewModel().MOCK_POKEMON)
+//    }
+//}

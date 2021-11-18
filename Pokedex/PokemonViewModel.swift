@@ -11,12 +11,12 @@ import CoreData
 
 class PokemonViewModel: ObservableObject {
     
-    @Published var pokemon = [Pokemon]()
+    private var pokemon = [Pokemon]()
     
     
     
     //save JSON to CoreData
-    func saveData(context: NSManagedObjectContext) {
+   private func saveData(context: NSManagedObjectContext) {
         pokemon.forEach{ (data) in
             let colorTypeTransformable = UIColor(data.typeColor).encode()
             let entity = CDPokemon(context: context)
@@ -45,9 +45,7 @@ class PokemonViewModel: ObservableObject {
     
     init(){
         
-//        Task {
-//            pokemon = try await getPokemon()
-//        }
+
         
     }
     
@@ -64,14 +62,14 @@ class PokemonViewModel: ObservableObject {
         
         let decoder = JSONDecoder()
         decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
-        
+        print(data)
         if( try? decoder.decode([CDPokemon].self, from: data)) != nil {
             print("decoded ?")
             if moc.hasChanges {
                 try? moc.save()
             }
         }
- 
+ print("it decoded but what?")
         return
     }
     

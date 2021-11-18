@@ -16,16 +16,16 @@ public class CDPokemon: NSManagedObject, Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case pokemonID
         case isFavorite
         case name
         case imageURL = "imageUrl"
         case type
-        case description
+        case descript = "description"
         case attack
         case defense
         case height
         case weight
+        case color
     }
     
     enum DecoderConfigurationError: Error {
@@ -40,17 +40,18 @@ public class CDPokemon: NSManagedObject, Decodable {
         
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pokemonID = UUID()
+        self.attack = try container.decode(Int32.self, forKey: .attack)
+        self.defense = try container.decode(Int32.self, forKey: .defense)
         self.id = try container.decode(Int32.self, forKey: .id)
-        self.pokemonID = try container.decode(UUID.self, forKey: .pokemonID)
         self.isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
         self.name = try container.decode(String.self, forKey: .name)
         self.imageURL = try container.decode(String.self, forKey: .imageURL)
         self.type = try container.decode(String.self, forKey: .type)
-        self.descript = try container.decode(String.self, forKey: .description)
-        self.attack = try container.decode(Int32.self, forKey: .attack)
-        self.defense = try container.decode(Int32.self, forKey: .defense)
+        self.descript = try container.decode(String.self, forKey: .descript)
         self.height = try container.decode(Int32.self, forKey: .height)
         self.weight = try container.decode(Int32.self, forKey: .weight)
+        self.color = try container.decode(Data.self, forKey: .color)
         
         
     }

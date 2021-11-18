@@ -30,12 +30,12 @@ struct ContentView: View {
             List {
                 ForEach(filteredPokemon) { pokemon in
                     NavigationLink(destination: DetailView(pokemon: pokemon)){
-                        
+
                         //use opt+CMD and an '[' to move block of code up a line!
                         HStack{
                             VStack(alignment: .leading, spacing: 5){
                                 HStack {
-                                    
+
                                     Text(pokemon.unwrappedName.capitalized)
                                         .font(.title)
                                     if pokemon.isFavorite {
@@ -43,7 +43,7 @@ struct ContentView: View {
                                             .foregroundColor(.yellow)
                                     }
                                 }
-                                
+
                                 HStack {
                                     Text(pokemon.unwrappedType.capitalized)
                                         .italic()
@@ -51,7 +51,7 @@ struct ContentView: View {
                                         .foregroundColor(pokemon.typeColor)
                                         .frame(width: 10, height: 10)
                                 }
-                                Text(pokemon.description)
+                                Text(pokemon.unwrappedDescript)
                                     .font(.caption)
                                     .lineLimit(2)
                             }
@@ -61,7 +61,7 @@ struct ContentView: View {
                                 .resizable()
                                 .frame(width:100, height: 100)
                         }
-                        
+
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button(action: { addFavorite(pokemon: pokemon)}) {
@@ -70,7 +70,7 @@ struct ContentView: View {
                         .tint(.yellow)
                     }
                 }
-                
+
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -115,17 +115,18 @@ struct ContentView: View {
             .navigationTitle(results.isEmpty ? "Fetched JSON": "Fetched CoreData")
             .searchable(text: $searchText)
             .task {
-                
+                print(results)
                 //if core data empty than load JSON() & save to context
     //else load results table ``````````!@@@@@@!@!@
                 if results.isEmpty {
                     do{
                      try await pokemonVM.getPokemon(moc: moc)
+                        
                     } catch {
                         print("Error", error)
                     }
                 } else {
-
+                    
                     }
                     
                 
@@ -142,8 +143,8 @@ struct ContentView: View {
     }
     
     func addFavorite(pokemon: CDPokemon) {
-        if let index = pokemonVM.pokemon.firstIndex(where: { $0.id == pokemon.id } ) {
-            pokemonVM.pokemon[index].isFavorite.toggle()
+        if let index = results.firstIndex(where: { $0.id == pokemon.id } ) {
+            results[index].isFavorite.toggle()
         }
     }
 }
