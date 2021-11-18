@@ -115,15 +115,15 @@ struct ContentView: View {
                 
                 //if core data empty than load JSON() & save to context
     //else load results table ``````````!@@@@@@!@!@
-//                if results.isEmpty {
-//                    do{
-//
-//                    } catch {
-//                        print("Error", error)
-//                    }
-//                } else {
-//
-//                    }
+                if results.isEmpty {
+                    do{
+                     try await pokemonVM.getPokemon(moc: moc)
+                    } catch {
+                        print("Error", error)
+                    }
+                } else {
+
+                    }
                     
                 
                 
