@@ -14,9 +14,12 @@ struct ContentView: View {
     @State private var searchText = ""
     
     //need to fix, does not show pokemon ascending right away, we need UI to react and sort right away
+    
     var filteredPokemon: [Pokemon] {
-        if searchText == "" {return pokemonVM.pokemon}
-        return pokemonVM.pokemon.filter{$0.name.lowercased().contains(searchText.lowercased())}
+        if searchText == "" {return pokemonVM.results.sorted{ $0.unwrappedName < $1.unwrappedName} }
+       return
+        pokemonVM.results.filter{$0.unwrappedName.lowercased().contains(searchText.lowercased())}
+    
     }
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: CDPokemon.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \CDPokemon.name, ascending: true)]) var results: FetchedResults<CDPokemon>
