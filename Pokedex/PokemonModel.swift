@@ -92,5 +92,5 @@ extension UIColor {
 }
 
 extension CodingUserInfoKey {
-    static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
-}
+      static let context = CodingUserInfoKey(rawValue: "context")
+   }

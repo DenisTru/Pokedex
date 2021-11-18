@@ -19,35 +19,37 @@ extension CDPokemon {
 
     @NSManaged public var attack: Int32
     @NSManaged public var color: Data?
+    @NSManaged public var defense: Int32
+    @NSManaged public var descript: String?
+    @NSManaged public var height: Int32
+    @NSManaged public var id: Int32
+    @NSManaged public var imageURL: String?
+    @NSManaged public var isFavorite: Bool
+    @NSManaged public var name: String?
+    @NSManaged public var pokemonID: UUID?
+    @NSManaged public var type: String?
+    @NSManaged public var weight: Int32
+    
+    
+    public var unwrappedName: String {
+        name ?? "No Name"
+    }
+    public var unwrappedUUID: UUID {
+        pokemonID ?? UUID()
+    }
+    public var unwrappedType: String {
+        type ?? "???"
+    }
+    public var unwrappedImageURL: String {
+        imageURL ?? "No Image"
+    }
+    public var unwrappedDescript: String {
+        descript ?? "N/A"
+    }
     public var unwrappedColor: Data {
         
         color ?? Data.init()
     }
-    @NSManaged public var defense: Int32
-    @NSManaged public var descript: String?
-    public var unwrappedDescript: String {
-        descript ?? "N/A"
-    }
-    @NSManaged public var height: Int32
-    @NSManaged public var id: Int32
-    @NSManaged public var imageURL: String?
-    public var unwrappedImageURL: String {
-        imageURL ?? "No Image"
-    }
-    @NSManaged public var isFavorite: Bool
-    @NSManaged public var name: String?
-    public var unwrappedName: String {
-        name ?? "No Name"
-    }
-    @NSManaged public var pokemonID: UUID?
-    public var unwrappedUUID: UUID {
-        pokemonID ?? UUID()
-    }
-    @NSManaged public var type: String?
-    public var unwrappedType: String {
-        type ?? "???"
-    }
-    @NSManaged public var weight: Int32
     
     var typeColor: Color {
            switch type {

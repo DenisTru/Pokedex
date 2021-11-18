@@ -61,15 +61,13 @@ class PokemonViewModel: ObservableObject {
         guard let data = data.removeNullsFrom(string: "null,") else {throw FetchError.badData}
         
         let decoder = JSONDecoder()
-        decoder.userInfo[CodingUserInfoKey.managedObjectContext] = moc
-        print(data)
-        if( try? decoder.decode([CDPokemon].self, from: data)) != nil {
-            print("decoded ?")
+        decoder.userInfo[CodingUserInfoKey.context!] = moc
+         _ = try? decoder.decode([CDPokemon].self, from: data)
             if moc.hasChanges {
                 try? moc.save()
             }
-        }
- print("it decoded but what?")
+        
+ 
         return
     }
     

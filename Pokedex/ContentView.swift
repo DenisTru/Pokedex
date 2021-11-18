@@ -13,7 +13,6 @@ struct ContentView: View {
     @StateObject var pokemonVM = PokemonViewModel()
     @State private var searchText = ""
     
-    //need to fix, does not show pokemon ascending right away, we need UI to react and sort right away
     
     var filteredPokemon: [CDPokemon] {
         if searchText == "" {return results.sorted{ $0.unwrappedName < $1.unwrappedName} }
@@ -75,17 +74,6 @@ struct ContentView: View {
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        //since we are not directly interacting with CoreData and we are displaying data off the @published array
-                        //we have to delete the stored data and repopulate with noew values from @published array --workaround--
-                        //unable to directly work with coredata because CDPokemon and Pokemon conflict, so we are appending @published with CDPokemon Values
-                        
-//                            results.forEach{ pokemon in
-//                                moc.delete(pokemon)
-//                            }
-//                            pokemonVM.saveData(context: moc)
-                         
-                        
-                        
                         if self.moc.hasChanges {
                             try? self.moc.save()
                         } else{
@@ -101,7 +89,6 @@ struct ContentView: View {
                             results.forEach{ pokemon in
                                 moc.delete(pokemon)
                             }
-//                            pokemonVM.pokemon.removeAll()
                             try moc.save()
                         }catch{
                             print(error.localizedDescription)
@@ -115,9 +102,6 @@ struct ContentView: View {
             .navigationTitle(results.isEmpty ? "Fetched JSON": "Fetched CoreData")
             .searchable(text: $searchText)
             .task {
-                print(results)
-                //if core data empty than load JSON() & save to context
-    //else load results table ``````````!@@@@@@!@!@
                 if results.isEmpty {
                     do{
                      try await pokemonVM.getPokemon(moc: moc)
@@ -125,12 +109,7 @@ struct ContentView: View {
                     } catch {
                         print("Error", error)
                     }
-                } else {
-                    
-                    }
-                    
-                
-                
+                }
             }
         }
         
