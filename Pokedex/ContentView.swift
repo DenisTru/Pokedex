@@ -15,10 +15,10 @@ struct ContentView: View {
     
     //need to fix, does not show pokemon ascending right away, we need UI to react and sort right away
     
-    var filteredPokemon: [Pokemon] {
-        if searchText == "" {return pokemonVM.results.sorted{ $0.unwrappedName < $1.unwrappedName} }
+    var filteredPokemon: [CDPokemon] {
+        if searchText == "" {return results.sorted{ $0.unwrappedName < $1.unwrappedName} }
        return
-        pokemonVM.results.filter{$0.unwrappedName.lowercased().contains(searchText.lowercased())}
+        results.filter{$0.unwrappedName.lowercased().contains(searchText.lowercased())}
     
     }
     @Environment(\.managedObjectContext) var moc
@@ -36,7 +36,7 @@ struct ContentView: View {
                             VStack(alignment: .leading, spacing: 5){
                                 HStack {
                                     
-                                    Text(pokemon.name.capitalized)
+                                    Text(pokemon.unwrappedName.capitalized)
                                         .font(.title)
                                     if pokemon.isFavorite {
                                         Image(systemName: "star.fill")
@@ -45,7 +45,7 @@ struct ContentView: View {
                                 }
                                 
                                 HStack {
-                                    Text(pokemon.type.capitalized)
+                                    Text(pokemon.unwrappedType.capitalized)
                                         .italic()
                                     Circle()
                                         .foregroundColor(pokemon.typeColor)
@@ -56,7 +56,7 @@ struct ContentView: View {
                                     .lineLimit(2)
                             }
                             Spacer()
-                            KFImage(URL(string: pokemon.imageURL))
+                            KFImage(URL(string: pokemon.unwrappedImageURL))
                                 .interpolation(.none)
                                 .resizable()
                                 .frame(width:100, height: 100)
@@ -141,7 +141,7 @@ struct ContentView: View {
         
     }
     
-    func addFavorite(pokemon: Pokemon) {
+    func addFavorite(pokemon: CDPokemon) {
         if let index = pokemonVM.pokemon.firstIndex(where: { $0.id == pokemon.id } ) {
             pokemonVM.pokemon[index].isFavorite.toggle()
         }

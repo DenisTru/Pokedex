@@ -44,7 +44,7 @@ extension CDPokemon {
         pokemonID ?? UUID()
     }
     @NSManaged public var type: String?
-    public var wrappedType: String {
+    public var unwrappedType: String {
         type ?? "???"
     }
     @NSManaged public var weight: Int32
