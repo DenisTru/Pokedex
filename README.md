@@ -13,4 +13,4 @@ Practice with UI/UX
 
 
 
-![pokedex](https://user-images.githubusercontent.com/29667033/142810682-3bdca1ef-0c64-47d9-aa97-7b41da298963.gif = 250x250)
+![pokedex](https://user-images.githubusercontent.com/29667033/142810682-3bdca1ef-0c64-47d9-aa97-7b41da298963.gif | width = 100)
