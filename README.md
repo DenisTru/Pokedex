@@ -12,5 +12,4 @@ Practice with UI/UX
 <br/>-Add a list to view Favorites
 
 
-
-![](https://user-images.githubusercontent.com/29667033/142810682-3bdca1ef-0c64-47d9-aa97-7b41da298963.gif =250x250)
+![pokedex](https://user-images.githubusercontent.com/29667033/142814761-41309157-77d2-49ee-9bfb-48337d0abe96.gif){:height="30%" width="30%"}
