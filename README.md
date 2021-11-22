@@ -11,5 +11,4 @@ Practice with UI/UX
 <br/>-Remove Save and delete buttons
 <br/>-Add a list to view Favorites
 
-https://user-images.githubusercontent.com/29667033/142095709-02c95510-8a7c-4270-88cc-6cb0e7864497.mov
-
+![pokedex](https://user-images.githubusercontent.com/29667033/142809790-f7b341da-aef5-4e2d-a4d3-d205cd745665.gif)
