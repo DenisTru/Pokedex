@@ -11,4 +11,4 @@ Practice with UI/UX
 <br/>-Remove Save and delete buttons
 <br/>-Add a list to view Favorites
 
-<img src="https://user-images.githubusercontent.com/29667033/142814761-41309157-77d2-49ee-9bfb-48337d0abe96.gif" width="400" height="850">
+<img src="https://user-images.githubusercontent.com/29667033/142814761-41309157-77d2-49ee-9bfb-48337d0abe96.gif" width="350" height="800">
