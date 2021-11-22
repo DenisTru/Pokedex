@@ -12,4 +12,4 @@ Practice with UI/UX
 <br/>-Add a list to view Favorites
 
 
-![pokedex](https://user-images.githubusercontent.com/29667033/142814761-41309157-77d2-49ee-9bfb-48337d0abe96.gifu/31112269?v=4&s=200)
+![pokedex](https://user-images.githubusercontent.com/29667033/142814761-41309157-77d2-49ee-9bfb-48337d0abe96.gif?v=4&s=200)
